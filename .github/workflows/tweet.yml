@@ -26,11 +26,11 @@ jobs:
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
       - name: Save Cache
+        shell: bash
         run: |
           git config --global user.email "1560508+ryoppippi@users.noreply.github.com"
           git config --global user.name "ryoppippi"
-          git add .
-          git commit -m 'Save Latest Tweet'
+          git diff-index --quiet HEAD || git commit -m 'Save Latest Tweet'
       - uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
