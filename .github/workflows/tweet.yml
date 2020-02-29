@@ -12,20 +12,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Cache node_modules
+      - name: Cache Message File
         uses: actions/cache@preview
         with:
           path: .cache
           key: msg-cache-${{ runner.os }}
           restore-keys: msg-cache-${{ runner.os }}
-      - name: Set up Python
+      - name: Set Up Python
         uses: actions/setup-python@v1
         with:
           python-version: "3.7"
       - name: envirnment setting
         run: |
           pip install poetry==1.0.2
-          poetry install
+          poetry install --no-dev
       - name: Run main script
         run: |
           poetry run python src/main.py
