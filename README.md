@@ -3,6 +3,7 @@
 
 ### Twitter アカウント
 [@covid19_info_jp](https://twitter.com/covid19_info_jp/)
+また現在のツイートは[こちら](./TWEET.txt)と同じものです。
 
 ### データソース
 - 厚生労働省の報道発表資料

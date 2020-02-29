@@ -1,27 +1,26 @@
 import get_data
 import urllib.request
 import os
-import pickle
 
 URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
 FILE_NAME = "data.csv"
 
 
-def compare_cache(msg, cache_dir=".cache/"):
+def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
     if not os.path.isdir(cache_dir):
         os.makedirs(cache_dir)
     try:
-        with open(os.path.join(cache_dir, "msg.pkl"), "rb") as f:
-            old_msg = pickle.load(f)
+        with open(os.path.join(cache_dir, filename), "r") as f:
+            old_msg = f.read(f)
     except FileNotFoundError:
-        with open(os.path.join(cache_dir, "msg.pkl"), "wb") as f:
-            pickle.dump(msg, f)
+        with open(os.path.join(cache_dir, filename), "w") as f:
+            f.write(msg)
         return msg
     if msg == old_msg:
         return None
     else:
-        with open(os.path.join(cache_dir, "msg.pkl"), "wb") as f:
-            pickle.dump(msg, f)
+        with open(os.path.join(cache_dir, filename), "w") as f:
+            f.write(msg)
         return msg
 
 

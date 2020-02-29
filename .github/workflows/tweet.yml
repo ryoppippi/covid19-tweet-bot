@@ -1,7 +1,7 @@
 name: Tweet
 on:
-  # schedule:
-  # - cron: "*/10 * * * *"
+  schedule:
+    - cron: "*/10 * * * *"
   push:
     branches:
       - master
@@ -12,15 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Get current time
-        uses: gerred/actions/current-time@master
-        id: current-time
-      - name: Cache Message File
-        uses: actions/cache@v1
-        with:
-          path: .cache
-          key: msg-cache-${{ runner.os }}-${{ steps.current-time.outputs.time  }}
-          restore-keys: msg-cache-${{ runner.os }}
       - name: Set Up Python
         uses: actions/setup-python@v1
         with:
@@ -34,3 +25,12 @@ jobs:
           poetry run python src/main.py
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
+      - name: Save Cache
+        run: |
+          git config --global user.email "1560508+ryoppippi@users.noreply.github.com"
+          git config --global user.name "ryoppippi"
+          git add .
+          git commit -m 'Save Latest Tweet'
+      - uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
