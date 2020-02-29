@@ -7,19 +7,20 @@ FILE_NAME = "data.csv"
 
 
 def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
+    file_path = os.path.join(cache_dir, filename)
     if not os.path.isdir(cache_dir):
         os.makedirs(cache_dir)
     try:
-        with open(os.path.join(cache_dir, filename), "r") as f:
-            old_msg = f.read(f)
+        with open(file_path) as f:
+            old_msg = f.read()
     except FileNotFoundError:
-        with open(os.path.join(cache_dir, filename), "w") as f:
+        with open(file_path, "w") as f:
             f.write(msg)
         return msg
     if msg == old_msg:
         return None
     else:
-        with open(os.path.join(cache_dir, filename), "w") as f:
+        with open(file_path, "w") as f:
             f.write(msg)
         return msg
 
