@@ -18,16 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Install
-        uses: abatilo/actions-poetry@v1.5.0
+      - name: Set up Python
+        uses: actions/setup-python@v1
         with:
-          python_version: 3.7.0
-          poetry_version: 1.0.2
-          args: install
-
+          python-version: "3.7"
+      - name: envirnment setting
+        run: |
+          pip install poetry==1.0.2
+          poetry install
       - name: Run main script
-        uses: abatilo/actions-poetry@v1.5.0
-        with:
-          python_version: 3.7.0
-          poetry_version: 1.0.2
-          args: run python src/main.py
+        run: |
+          poetry run python src/main.py
