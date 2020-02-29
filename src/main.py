@@ -1,9 +1,28 @@
 import get_data
 import urllib.request
 import os
+import pickle
 
 URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
 FILE_NAME = "data.csv"
+
+
+def compare_cache(msg, cache_dir=".cache/"):
+    if not os.path.isdir(cache_dir):
+        os.makedirs(cache_dir)
+    try:
+        with open(os.path.join(cache_dir, "msg.pkl"), "rb") as f:
+            old_msg = pickle.load(f)
+    except FileNotFoundError:
+        with open(os.path.join(cache_dir, "msg.pkl"), "wb") as f:
+            pickle.dump(msg, f)
+        return msg
+    if msg == old_msg:
+        return None
+    else:
+        with open(os.path.join(cache_dir, "msg.pkl"), "wb") as f:
+            pickle.dump(msg, f)
+        return msg
 
 
 def gen_msg(url=URL, filename=FILE_NAME):
@@ -42,8 +61,10 @@ def send_tweet(msg):
 def main():
     msg = gen_msg(url=URL, filename=FILE_NAME)
     print(msg)
-    send_tweet(msg)
-    print(len(msg))
+    msg = compare_cache(msg)
+    if msg is not None:
+        send_tweet(msg)
+        print(len(msg))
 
 
 if __name__ == "__main__":
