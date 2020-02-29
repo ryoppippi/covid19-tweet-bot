@@ -6,8 +6,6 @@ authors = ["ryoppippi <1560508+ryoppippi@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-twitter = "^1.18.0"
-python-dotenv = "^0.12.0"
 pandas = "^1.0.1"
 
 [tool.poetry.dev-dependencies]

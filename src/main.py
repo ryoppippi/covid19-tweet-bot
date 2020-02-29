@@ -1,6 +1,6 @@
-import config
 import get_data
-from twitter import Twitter, OAuth
+import urllib.request
+import os
 
 URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
 FILE_NAME = "data.csv"
@@ -23,21 +23,28 @@ def gen_msg(url=URL, filename=FILE_NAME):
     return msg
 
 
+def send_tweet(msg):
+    # params for IFTTT
+    print(os.environ.get("webhook_access_key"))
+    ifttt_api_key = "/with/key/" + os.environ.get("webhook_access_key")
+    url_base = "https://maker.ifttt.com/trigger/"
+    # EVENT name for IFTTT
+    ifttt_event = "create_tweet"
+
+    url = url_base + ifttt_event + ifttt_api_key
+    messgae = {"value1": msg}
+    req = urllib.request.Request("{}?{}".format(url, urllib.parse.urlencode(messgae)))
+    with urllib.request.urlopen(req) as res:
+        body = res.read().decode("utf-8")
+        print(body)
+
+
 def main():
-    t = Twitter(
-        auth=OAuth(
-            config.TW_TOKEN,
-            config.TW_TOKEN_SECRET,
-            config.TW_CONSUMER_KEY,
-            config.TW_CONSUMER_SECRET,
-        )
-    )
-    msg = gen_msg(URL, FILE_NAME)
-    t.statuses.update(status=msg)
+    msg = gen_msg(url=URL, filename=FILE_NAME)
+    print(msg)
+    send_tweet(msg)
+    print(len(msg))
 
 
 if __name__ == "__main__":
-    res = gen_msg()
-    print(res)
-    print(len(res))
-    # main()
+    main()
