@@ -12,11 +12,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+      - name: Get current time
+        uses: gerred/actions/current-time@master
+        id: current-time
       - name: Cache Message File
-        uses: actions/cache@preview
+        uses: actions/cache@v1
         with:
           path: .cache
-          key: msg-cache-${{ runner.os }}
+          key: msg-cache-${{ runner.os }}-${{ steps.current-time.outputs.time  }}
           restore-keys: msg-cache-${{ runner.os }}
       - name: Set Up Python
         uses: actions/setup-python@v1

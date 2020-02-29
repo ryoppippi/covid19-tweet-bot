@@ -10,7 +10,7 @@
 - 東洋経済オンライン「新型コロナウイルス国内感染の状況」
 - https://toyokeizai.net/sp/visual/tko/covid19/
 - covid19
-- https://github.com/kaz-ogiwara/covid19/blob/master/README.md
+- https://github.com/kaz-ogiwara/covid19/
 
 ### ライセンス
 - MITライセンスとします。研究、調査、報道など、商用・非商用を問わずご自由にお使いください。
