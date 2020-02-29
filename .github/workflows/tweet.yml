@@ -1,0 +1,33 @@
+name: Tweet
+on:
+  schedule:
+    - cron: "0 4 * * *"
+    - cron: "0 7 * * *"
+    - cron: "0 10 * * *"
+    - cron: "0 13 * * *"
+    - cron: "0 16 * * *"
+    - cron: "0 19 * * *"
+    - cron: "0 22 * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+  pytest:
+    name: Tweet Covid19 Info
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install
+        uses: abatilo/actions-poetry@v1.5.0
+        with:
+          python_version: 3.7.0
+          poetry_version: 1.0.2
+          args: install
+
+      - name: Run main script
+        uses: abatilo/actions-poetry@v1.5.0
+        with:
+          python_version: 3.7.0
+          poetry_version: 1.0.2
+          args: run python src/main.py
