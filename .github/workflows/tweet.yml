@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  pytest:
+  tweet:
     name: Tweet Covid19 Info
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +30,7 @@ jobs:
         run: |
           git config --global user.email "1560508+ryoppippi@users.noreply.github.com"
           git config --global user.name "ryoppippi"
+          git add --all
           git diff-index --quiet HEAD || git commit -m 'Save Latest Tweet'
       - uses: ad-m/github-push-action@master
         with:
