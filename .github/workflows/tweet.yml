@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  pytest:
+  tweet:
     name: Tweet Covid19 Info
     runs-on: ubuntu-latest
     steps:
