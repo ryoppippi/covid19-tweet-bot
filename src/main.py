@@ -20,7 +20,7 @@ def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
     if msg == old_msg:
         return None
     else:
-        with open(file_path, "w") as f:
+        with open(os.path.join(cache_dir, filename), "w") as f:
             f.write(msg)
         return msg
 

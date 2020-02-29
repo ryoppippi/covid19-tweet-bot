@@ -13,8 +13,10 @@ def patiant_data(url, filename):
     df = download(url, filename)
 
     # change datetime
-    df["確定日"] = df["確定日"] = pd.to_datetime(df["確定日"], format="%m/%d", errors="coerce")
-    df["確定日"] = df["確定日"].apply(lambda dt: dt.replace(year=2020))
+    df["確定日"] = df["確定日"].apply(lambda dt: "2020/" + dt)
+    df["確定日"] = df["確定日"] = pd.to_datetime(
+        df["確定日"], format="%Y/%m/%d", errors="coerce"
+    )
 
     # remove unjudged patient
     df = df.dropna()
