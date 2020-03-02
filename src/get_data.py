@@ -19,7 +19,7 @@ def patiant_data(url, filename):
     )
 
     # remove unjudged patient
-    df = df.dropna()
+    # df = df.dropna()
 
     return df
 
