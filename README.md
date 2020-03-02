@@ -1,9 +1,9 @@
 # covid19
-新型コロナウイルス（COVID19）の国内における感染の状況を厚生労働省の報道発表資料から一部の重要情報をツイート
+新型コロナウイルス（COVID19）の国内における感染の状況を厚生労働省の報道発表資料およびWHO資料から一部の重要情報をツイート
 
 ### Twitter アカウント
 [@covid19_info_jp](https://twitter.com/covid19_info_jp/)  
-また現在のツイートは[こちら](./TWEET.txt)と同じものです。
+また現在のツイートは[こちら](./tweet/)と同じものです。
 
 ### データソース
 - 厚生労働省の報道発表資料
@@ -12,6 +12,9 @@
 - https://toyokeizai.net/sp/visual/tko/covid19/
 - covid19  
 - https://github.com/kaz-ogiwara/covid19/
+- Covid-19
+- https://oku.edu.mie-u.ac.jp/~okumura/python/COVID-19.html
+- https://github.com/CSSEGISandData/COVID-19
 
 ### ライセンス
 - MITライセンスとします。研究、調査、報道など、商用・非商用を問わずご自由にお使いください。

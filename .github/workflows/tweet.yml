@@ -22,7 +22,8 @@ jobs:
           poetry install --no-dev
       - name: Run main script
         run: |
-          poetry run python src/main.py
+          poetry run python src/main.py -t d
+          poetry run python src/main.py -t g
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
       - name: Save Cache

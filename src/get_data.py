@@ -3,14 +3,14 @@ import io
 import pandas as pd
 
 
-def download(url, filename):
+def download(url, **args):
     res = urllib.request.urlopen(url).read().decode("utf-8")
-    df = pd.read_csv(io.StringIO(res), parse_dates=True)
+    df = pd.read_csv(io.StringIO(res), **args)
     return df
 
 
-def patiant_data(url, filename):
-    df = download(url, filename)
+def patiant_data(url):
+    df = download(url, parse_dates=True)
 
     # change datetime
     df["確定日"] = df["確定日"].apply(lambda dt: "2020/" + dt)
@@ -38,7 +38,7 @@ def extract_info_from_data(df):
 if __name__ == "__main__":
     URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
     FILE_NAME = "data.csv"
-    data = patiant_data(URL, FILE_NAME)
+    data = patiant_data(URL)
     res = extract_info_from_data(data)
 
     pd.set_option("display.max_rows", data.shape[0] + 1)
