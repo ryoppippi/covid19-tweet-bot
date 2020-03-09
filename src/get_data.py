@@ -27,8 +27,10 @@ def patiant_data(url):
 def extract_info_from_data(df):
     res = {}
     res["num_ppl"] = len(df)
-    res["num_male"] = (df == "男")["性別"].sum()
-    res["num_female"] = (df == "女")["性別"].sum()
+    # res["num_male"] = (df == "男")["性別"].sum()
+    # res["num_female"] = (df == "女")["性別"].sum()
+    res["num_male"] = (df == "男")["別"].sum()
+    res["num_female"] = (df == "女")["別"].sum()
     res["area"] = df["居住地"].value_counts()
     res["diff"] = (df.iloc[-1]["確定日"] == df["確定日"]).sum()
     res["last_date"] = df.iloc[-1]["確定日"].strftime("%m/%d")
