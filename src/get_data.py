@@ -13,9 +13,13 @@ def patiant_data(url):
     df = download(url, parse_dates=True)
 
     # change datetime
-    df["確定日"] = df["確定日"].apply(lambda dt: "2020/" + dt)
     df["確定日"] = df["確定日"] = pd.to_datetime(
-        df["確定日"], format="%Y/%m/%d", errors="coerce"
+        df["確定年"].astype(str)
+        + "-"
+        + df["確定月"].astype(str)
+        + "-"
+        + df["確定日"].astype(str),
+        errors="coerce",
     )
 
     # remove unjudged patient
@@ -27,10 +31,8 @@ def patiant_data(url):
 def extract_info_from_data(df):
     res = {}
     res["num_ppl"] = len(df)
-    # res["num_male"] = (df == "男")["性別"].sum()
-    # res["num_female"] = (df == "女")["性別"].sum()
-    res["num_male"] = (df == "男")["別"].sum()
-    res["num_female"] = (df == "女")["別"].sum()
+    res["num_male"] = (df == "男")["性別"].sum()
+    res["num_female"] = (df == "女")["性別"].sum()
     res["area"] = df["居住地"].value_counts()
     res["diff"] = (df.iloc[-1]["確定日"] == df["確定日"]).sum()
     res["last_date"] = df.iloc[-1]["確定日"].strftime("%m/%d")
