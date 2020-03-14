@@ -4,7 +4,7 @@ import os
 import argparse
 
 
-URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
+URL = "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/individuals.csv"
 D_URL = "https://oku.edu.mie-u.ac.jp/~okumura/python/data/COVID-19.csv"
 
 
