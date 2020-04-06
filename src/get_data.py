@@ -13,12 +13,12 @@ def patiant_data(url):
     df = download(url, parse_dates=True)
 
     # change datetime
-    df["確定日"] = df["確定日"] = pd.to_datetime(
-        df["確定年"].astype(str)
+    df["公表日"] = df["公表日"] = pd.to_datetime(
+        df["公表年"].astype(str)
         + "-"
-        + df["確定月"].astype(str)
+        + df["公表月"].astype(str)
         + "-"
-        + df["確定日"].astype(str),
+        + df["公表日"].astype(str),
         errors="coerce",
     )
 

@@ -4,7 +4,7 @@ import os
 import argparse
 
 
-URL = "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/individuals.csv"
+URL = "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/summary.csv"
 D_URL = "https://oku.edu.mie-u.ac.jp/~okumura/python/data/COVID-19.csv"
 
 
@@ -28,17 +28,17 @@ def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
 
 
 def domestic_gen_msg(url=URL):
-    data = get_data.patiant_data(url)
-    res = get_data.extract_info_from_data(data)
+    df = get_data.patiant_data(url)
     msg = ""
-
     # create message
     msg += "新型コロナウイルス国内感染の状況\n"
-    msg += "{0} 現在\n".format(res["last_date"])
-    msg += "総計: {0}名\n".format(res["num_ppl"])
-    msg += "男性: {0}名\n".format(res["num_male"])
-    msg += "女性: {0}名\n".format(res["num_female"])
-    msg += "前日から {0}名増加しました\n".format(res["diff"])
+    msg += "{0} 現在\n".format(df.iloc[-1]["公表日"])
+    msg += "感染者: {0}名\n".format(df.iloc[-1]["PCR検査陽性者"])
+    msg += "死者: {0}名\n".format(df.iloc[-1]["死亡者"])
+    msg += "感染者は前日から {0}名増加しました\n".format(
+        abs(df.iloc[-1]["PCR検査陽性者"] - df.iloc[-2]["PCR検査陽性者"])
+    )
+    msg += "死者は前日から {0}名増加しました\n".format(abs(df.iloc[-1]["死亡者"] - df.iloc[-2]["死亡者"]))
     msg += "詳しくはこちら↓\n" + "https://t.co/uxsL1MQICb?amp=1\n"
     msg += "#新型コロナ #Covid_19"
     return msg
