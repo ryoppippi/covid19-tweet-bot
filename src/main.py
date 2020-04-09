@@ -32,7 +32,7 @@ def domestic_gen_msg(url=URL):
     msg = ""
     # create message
     msg += "新型コロナウイルス国内感染の状況\n"
-    msg += "{0} 現在\n".format(df.iloc[-1]["公表日"])
+    msg += "{0} 現在\n".format(df.iloc[-1]["日"])
     msg += "感染者: {0}名\n".format(df.iloc[-1]["PCR検査陽性者"])
     msg += "死者: {0}名\n".format(df.iloc[-1]["死亡者"])
     msg += "感染者は前日から {0}名増加しました\n".format(
