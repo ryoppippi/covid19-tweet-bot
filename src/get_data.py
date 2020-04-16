@@ -11,35 +11,19 @@ def download(url, **args):
 
 def patiant_data(url):
     df = download(url, parse_dates=True)
-
     # change datetime
     df["日"] = df["日"] = pd.to_datetime(
         df["年"].astype(str) + "-" + df["月"].astype(str) + "-" + df["日"].astype(str),
         errors="coerce",
     )
-
-    # remove unjudged patient
-    # df = df.dropna()
-
     return df
 
 
-def extract_info_from_data(df):
-    res = {}
-    res["num_ppl"] = len(df)
-    res["num_male"] = (df == "男")["性別"].sum()
-    res["num_female"] = (df == "女")["性別"].sum()
-    res["diff"] = (df.iloc[-1]["確定日"] == df["確定日"]).sum()
-    res["last_date"] = df.iloc[-1]["確定日"].strftime("%m/%d")
-    return res
-
-
 if __name__ == "__main__":
-    URL = "https://toyokeizai.net/sp/visual/tko/covid19/csv/data.csv"
-    FILE_NAME = "data.csv"
+    URL = (
+        "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/summary.csv"
+    )
     data = patiant_data(URL)
-    res = extract_info_from_data(data)
 
     pd.set_option("display.max_rows", data.shape[0] + 1)
     print(data)
-    print(res)
