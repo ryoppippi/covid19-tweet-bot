@@ -1,4 +1,4 @@
-# covid19
+# covid19  ![Tweet](https://github.com/ryoppippi/covid19-tweet-bot/workflows/Tweet/badge.svg)
 新型コロナウイルス（COVID19）の国内における感染の状況を厚生労働省の報道発表資料およびWHO資料から一部の重要情報をツイート
 
 ### Twitter アカウント
