@@ -22,7 +22,7 @@ jobs:
           key: ${{ runner.os }}-venv-${{ hashFiles('poetry.lock') }}
           restore-keys: |
             ${{ runner.os }}-venv-
-      - name: envirnment setting
+      - name: environment setting
         run: |
           pip install poetry==1.0.2
           poetry install --no-dev
