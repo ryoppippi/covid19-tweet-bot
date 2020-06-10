@@ -16,6 +16,12 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: "3.7"
+      - uses: actions/cache@v1
+        with:
+          path: ./.venv
+          key: ${{ runner.os }}-venv-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-venv-
       - name: envirnment setting
         run: |
           pip install poetry==1.0.2
@@ -23,7 +29,6 @@ jobs:
       - name: Run main script
         run: |
           poetry run python src/main.py -t d
-          poetry run python src/main.py -t g
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
       - name: Save Cache
