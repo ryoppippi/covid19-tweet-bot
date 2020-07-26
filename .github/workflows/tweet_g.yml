@@ -45,5 +45,5 @@ jobs:
         if: failure()
         uses: rtCamp/action-slack-notify@v2.0.2
         env:
-          SLACK_CHANNEL: github
+          SLACK_CHANNEL: ci
           SLACK_COLOR: danger
