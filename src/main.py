@@ -45,13 +45,11 @@ def domestic_gen_msg():
 
 def send_tweet(msg):
     # params for IFTTT
-    print(os.environ.get("webhook_access_key"))
-    ifttt_api_key = "/with/key/" + os.environ.get("webhook_access_key")
     url_base = "https://maker.ifttt.com/trigger/"
-    # EVENT name for IFTTT
+    webhook_access_key = os.environ.get("webhook_access_key")    
     ifttt_event = "create_tweet"
 
-    url = url_base + ifttt_event + ifttt_api_key
+    url = f"{url_base}/{ifttt_event}/with/key/{webhook_access_key}"
     messgae = {"value1": msg}
     req = urllib.request.Request("{}?{}".format(url, urllib.parse.urlencode(messgae)))
     with urllib.request.urlopen(req) as res:
