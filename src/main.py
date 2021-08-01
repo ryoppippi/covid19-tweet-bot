@@ -1,12 +1,10 @@
 import get_data
 import urllib.request
 import os
-import argparse
 
 
-URL = "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/summary.csv"
-D_URL = "https://oku.edu.mie-u.ac.jp/~okumura/python/data/COVID-19.csv"
-
+P_URL = "https://data.corona.go.jp/converted-json/covid19japan-npatients.json"
+D_URL = "https://data.corona.go.jp/converted-json/covid19japan-ndeaths.json"
 
 def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
     file_path = os.path.join(cache_dir, filename)
@@ -27,43 +25,21 @@ def compare_cache(msg, filename="TWEET.txt", cache_dir="."):
         return msg
 
 
-def domestic_gen_msg(url=URL):
-    df = get_data.patiant_data(url)
+def domestic_gen_msg():
+    df_p = get_data.download(P_URL)
+    df_d = get_data.download(D_URL)
     msg = ""
     # create message
     msg += "新型コロナウイルス国内感染の状況\n"
-    msg += "{0} 現在\n".format(df.iloc[-1]["date"])
-    msg += "感染者: {0}名\n".format(df.iloc[-1]["tested_positive"])
-    msg += "死者: {0}名\n".format(df.iloc[-1]["death"])
-    msg += "感染者は前日から {0}名増加しました\n".format(
-        abs(df.iloc[-1]["tested_positive"] - df.iloc[-2]["tested_positive"])
-    )
-    msg += "死者は前日から {0}名増加しました\n".format(
-        abs(df.iloc[-1]["death"] - df.iloc[-2]["death"])
-    )
-    msg += "詳しくはこちら↓\n" + "https://t.co/uxsL1MQICb?amp=1\n"
+    msg += "{0} 現在\n".format(df_p[-1].get("date"))
+    msg += "感染者: {0}名\n".format(df_p[-1].get("npatients"))
+    msg += "死者: {0}名\n".format(df_d[-1].get("ndeaths"))
+    msg += "感染者は前日から {0}名増加しました\n".format(df_p[-1].get("adpatients"))
+    msg += "死者は前日から {0}名増加しました\n".format(int(df_d[-1].get("ndeaths"))-int(df_d[-2].get("ndeaths")))
+    msg += "詳しくはこちら↓\n" + "corona.go.jp/dashboard\n"
     msg += "#新型コロナ #Covid_19"
     return msg
 
-
-def global_gen_msg(url=URL):
-    df = get_data.download(url)
-
-    msg = ""
-    # create message
-    msg += "新型コロナウイルス世界的感染の状況\n"
-    msg += "{0} 現在\n".format(df.iloc[-1]["Date"])
-    msg += "感染者: {0}名\n".format(df.iloc[-1]["Global Confirmed"])
-    msg += "死者: {0}名\n".format(df.iloc[-1]["Global Deaths"])
-    msg += "感染者は前日から {0}名増加しました\n".format(
-        abs(df.iloc[-1]["Global Confirmed"] - df.iloc[-2]["Global Confirmed"])
-    )
-    msg += "死者は前日から {0}名増加しました\n".format(
-        abs(df.iloc[-1]["Global Deaths"] - df.iloc[-2]["Global Deaths"])
-    )
-    msg += "詳しくはこちら↓\n" + "ift.tt/38ukisZ\n"
-    msg += "#新型コロナ #Covid_19"
-    return msg
 
 
 def send_tweet(msg):
@@ -82,25 +58,14 @@ def send_tweet(msg):
         print(body)
 
 
-def main(t="d"):
-    if t == "d":
-        msg = domestic_gen_msg(url=URL)
-        print(msg)
-        msg = compare_cache(msg, filename="./tweet/DTWEET.txt")
-        if msg is not None:
-            send_tweet(msg)
-            print(len(msg))
-    elif t == "g":
-        msg = global_gen_msg(url=D_URL)
-        print(msg)
-        msg = compare_cache(msg, filename="./tweet/GTWEET.txt")
-        if msg is not None:
-            send_tweet(msg)
-            print(len(msg))
+def main():
+    msg = domestic_gen_msg()
+    print(msg)
+    msg = compare_cache(msg, filename="./tweet/DTWEET.txt")
+    if msg is not None:
+        send_tweet(msg)
+        print(len(msg))
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--type", "-t", default="d")
-    _type = parser.parse_args().type
-    main(_type)
+    main()
