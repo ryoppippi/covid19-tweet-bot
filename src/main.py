@@ -61,6 +61,7 @@ def main():
     msg = domestic_gen_msg()
     print(msg)
     msg = compare_cache(msg, filename="./tweet/DTWEET.txt")
+    print(msg)
     if msg is not None:
         send_tweet(msg)
         print(len(msg))

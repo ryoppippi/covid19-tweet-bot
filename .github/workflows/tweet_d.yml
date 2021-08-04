@@ -28,6 +28,6 @@ jobs:
           git config --global user.email github-actions@github.com
           git add --all
           git diff-index --quiet HEAD || git commit -m 'Save Latest Tweet'
-      - uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          git pull
+          git push
+
