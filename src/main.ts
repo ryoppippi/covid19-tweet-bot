@@ -80,6 +80,7 @@ const sendTweet = async (msg: string) => {
     `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/${webhookAccessKey}`
   );
   url.searchParams.append("value1", encodeURIComponent(msg));
+  console.log(url);
   const resp = await fetch(url);
   if (!resp.ok) {
     throw new Error(resp.statusText);
@@ -92,7 +93,7 @@ const main = async () => {
   console.log(msg);
   if (await compareWithCache(msg, "./tweet/DTWEET.txt")) {
     console.log("No update");
-    return;
+    // return;
   }
   const resp = await sendTweet(msg).catch(console.error);
   if (resp && resp.ok) {
