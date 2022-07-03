@@ -39,7 +39,7 @@ const writeCache = async (msg: string, filename: string) => {
   try {
     await Deno.writeTextFile(filename, msg);
   } catch (e) {
-    return e.message;
+    throw new Error(e);
   }
   return true;
 };
