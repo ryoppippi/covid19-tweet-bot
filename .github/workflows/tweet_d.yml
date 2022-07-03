@@ -4,7 +4,7 @@ on:
     - cron: "*/5 * * * *"
   push:
     branches:
-      - "*"
+      - master
 
 jobs:
   tweet:
@@ -20,7 +20,7 @@ jobs:
           deno run --allow-net --allow-read --allow-write --allow-env  src/main.ts
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
-      - name: Save Cache
+      - name: Commit a Cache
         shell: bash
         run: |
           git config --global user.name github-actions

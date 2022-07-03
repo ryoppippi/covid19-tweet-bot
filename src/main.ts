@@ -90,12 +90,11 @@ const sendTweet = async (msg: string) => {
 const main = async () => {
   const msg = await genMsg();
   console.log(msg);
-  // if (await compareWithCache(msg, "./tweet/DTWEET.txt")) {
-  //   console.log("No update");
-  //   return;
-  // }
+  if (await compareWithCache(msg, "./tweet/DTWEET.txt")) {
+    console.log("No update");
+    return;
+  }
   const resp = await sendTweet(msg).catch(console.error);
-  console.log(resp);
   if (resp && resp.ok) {
     return (
       (await writeCache(msg, "./tweet/DTWEET.txt").catch(console.error)) &&
