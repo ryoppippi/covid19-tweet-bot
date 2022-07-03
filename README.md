@@ -5,6 +5,7 @@
 ### Twitter アカウント
 [@covid19_info_jp](https://twitter.com/covid19_info_jp/)  
 ### ライセンス
-- MITライセンスとします。研究、調査、報道など、商用・非商用を問わずご自由にお使いください。
-- ただし、このプロジェクトによって生じたいかなる責任も開発者は負わないものとします。
+- MITライセンスとします
 
+##### Pythonでの旧実装
+[こちら](https://github.com/ryoppippi/covid19-tweet-bot/tree/python)
