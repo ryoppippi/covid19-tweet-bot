@@ -79,8 +79,7 @@ const sendTweet = async (msg: string) => {
   const url = new URL(
     `https://maker.ifttt.com/trigger/${iftttEvent}/with/key/${webhookAccessKey}`
   );
-  url.searchParams.append("value1", encodeURIComponent(msg));
-  console.log(url);
+  url.searchParams.append("value1", msg);
   const resp = await fetch(url);
   if (!resp.ok) {
     throw new Error(resp.statusText);
