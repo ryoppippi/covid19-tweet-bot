@@ -12,16 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Set Up Python
-        uses: actions/setup-python@v1
+      - uses: denoland/setup-deno@v1
         with:
-          python-version: "3.7"
+          deno-version: v1.x
       - name: Run main script
         run: |
-          python3 src/main.py
+          deno run --allow-net --allow-read --allow-write --allow-env  src/main.ts
         env:
           webhook_access_key: ${{ secrets.webhook_access_key }}
-      - name: Save Cache
+      - name: Commit a Cache
         shell: bash
         run: |
           git config --global user.name github-actions
@@ -30,4 +29,3 @@ jobs:
           git diff-index --quiet HEAD || git commit -m 'Save Latest Tweet'
           git pull
           git push
-
