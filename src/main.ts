@@ -2,6 +2,7 @@ const P_URL =
   "https://data.corona.go.jp/converted-json/covid19japan-npatients.json";
 const D_URL =
   "https://data.corona.go.jp/converted-json/covid19japan-ndeaths.json";
+const cacheFilename = "./tweet/DTWEET.txt";
 
 const downloadData = async <T>(url: string) => {
   const response = await fetch(url);
@@ -90,14 +91,14 @@ const sendTweet = async (msg: string) => {
 const main = async () => {
   const msg = await genMsg();
   console.log(msg);
-  if (await compareWithCache(msg, "./tweet/DTWEET.txt")) {
+  if (await compareWithCache(msg, cacheFilename)) {
     console.log("No update");
     return;
   }
   const resp = await sendTweet(msg).catch(console.error);
   if (resp && resp.ok) {
     return (
-      (await writeCache(msg, "./tweet/DTWEET.txt").catch(console.error)) &&
+      (await writeCache(msg, cacheFilename).catch(console.error)) &&
       console.log("Done")
     );
   }
